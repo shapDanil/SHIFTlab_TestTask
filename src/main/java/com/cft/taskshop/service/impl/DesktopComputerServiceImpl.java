@@ -3,6 +3,7 @@ package com.cft.taskshop.service.impl;
 import com.cft.taskshop.model.DesktopComputer;
 import com.cft.taskshop.repository.DesktopComputerRepository;
 import com.cft.taskshop.service.CommodityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class DesktopComputerServiceImpl implements CommodityService<DesktopComputer> {
     public DesktopComputerRepository desktopComputerRepository;
 
+    @Autowired
     public DesktopComputerServiceImpl(DesktopComputerRepository desktopComputerRepository) {
         this.desktopComputerRepository = desktopComputerRepository;
     }

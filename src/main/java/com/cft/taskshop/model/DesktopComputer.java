@@ -6,15 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "desktopComputers")
 public class DesktopComputer extends Сommodity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String formFactor;
 
-    public DesktopComputer(String serialNumber, String producer, int price, int numberProductUnitsInStock, Integer id, String formFactor) {
-        super(serialNumber, producer, price, numberProductUnitsInStock);
+    public DesktopComputer(String serialNumber, String producer, int price, int amount, Integer id, String formFactor) {
+        super(serialNumber, producer, price, amount);
         this.id = id;
         this.formFactor = formFactor;
     }
@@ -24,7 +24,7 @@ public class DesktopComputer extends Сommodity{
         formFactor = "Desktop";
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 

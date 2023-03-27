@@ -2,6 +2,7 @@ package com.cft.taskshop.controller;
 
 import com.cft.taskshop.model.DesktopComputer;
 import com.cft.taskshop.service.impl.DesktopComputerServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +11,14 @@ import java.util.List;
 @RestController
 public class DesktopComputerController {
     private DesktopComputerServiceImpl desktopComputerService;
-
+    @Autowired
     public DesktopComputerController(DesktopComputerServiceImpl desktopComputerService) {
         this.desktopComputerService = desktopComputerService;
     }
 
     @PostMapping("/addDesktop")
     public ResponseEntity<?> create(@RequestBody DesktopComputer desktopComputer) {
+        System.out.println("sdasd");
         return ResponseEntity.ok(desktopComputerService.create(desktopComputer));
     }
 
