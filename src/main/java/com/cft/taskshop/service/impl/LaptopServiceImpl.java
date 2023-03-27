@@ -1,9 +1,8 @@
 package com.cft.taskshop.service.impl;
 
 
-import com.cft.taskshop.model.DesktopComputer;
 import com.cft.taskshop.model.Laptop;
-import com.cft.taskshop.repository.DesktopComputerRepository;
+import com.cft.taskshop.model.Monitor;
 import com.cft.taskshop.repository.LaptopRepository;
 import com.cft.taskshop.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;

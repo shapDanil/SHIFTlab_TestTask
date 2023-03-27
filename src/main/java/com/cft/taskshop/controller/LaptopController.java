@@ -1,7 +1,7 @@
 package com.cft.taskshop.controller;
 
 import com.cft.taskshop.model.DesktopComputer;
-import com.cft.taskshop.model.Laptop;
+import com.cft.taskshop.model.*;
 import com.cft.taskshop.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
