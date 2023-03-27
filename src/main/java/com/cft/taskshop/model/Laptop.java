@@ -17,9 +17,9 @@ public class Laptop extends Сommodity {
         this.id = id;
         this.laptopSizeInInches = laptopSizeInInches;
     }
-    public Laptop(Integer id, Integer laptopSizeInInches) {
-        this.id = id;
-        this.laptopSizeInInches = laptopSizeInInches;
+    public Laptop() {
+        super();
+        laptopSizeInInches = 0;
     }
 
     public Integer getId() {
@@ -37,7 +37,5 @@ public class Laptop extends Сommodity {
     public void setLaptopSizeInInches(Integer laptopSizeInInches) {
         this.laptopSizeInInches = laptopSizeInInches;
     }
-
-
 
 }
