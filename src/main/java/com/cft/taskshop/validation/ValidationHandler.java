@@ -17,11 +17,8 @@ public class ValidationHandler {
         return EValidationCodeResult.UNKNOWN_ERROR;
     }
     public static EValidationCodeResult validateCommodity(Сommodity entityCommodity ) {
-        if (entityCommodity.getSerialNumber() == null && entityCommodity.getManufacturer() == null
-                && entityCommodity.getPrice() == 0 && entityCommodity.getAmount() == 0)
-            return EValidationCodeResult.ALL_FIELDS_ARE_EMPTY;
 
-        if (entityCommodity.getSerialNumber().equals(""))
+        if (entityCommodity.getSerialNumber() == null)
             return EValidationCodeResult.SERIAL_NUMBER_IS_EMPTY;
 
         if (entityCommodity.getManufacturer() == null)
@@ -39,6 +36,23 @@ public class ValidationHandler {
         if (entityCommodity.getAmount() < 0)
             return EValidationCodeResult.AMOUNT_LESS_THAN_ZERO;
 
+        return EValidationCodeResult.NO_ERROR;
+    }
+    public static EValidationCodeResult validateDesktopComputer(DesktopComputer desktopComputer) {
+        EValidationCodeResult validationCodeResult = validateDesktopComputer(desktopComputer);
+        if (validationCodeResult == EValidationCodeResult.NO_ERROR) {
+            if (desktopComputer.getFormFactor() == null) {
+                return EValidationCodeResult.FORM_FACTOR_IS_EMPTY;
+            } else {
+                if (!desktopComputer.getFormFactor().equalsIgnoreCase("моноблок") &&
+                    !desktopComputer.getFormFactor().equalsIgnoreCase("десктоп") &&
+                    !desktopComputer.getFormFactor().equalsIgnoreCase("неттоп")) {
+                    return EValidationCodeResult.THE_FORM_FACTOR_ENTERED_IS_NOT_CORRECT;
+                }
+            }
+        } else {
+            return validationCodeResult;
+        }
         return EValidationCodeResult.NO_ERROR;
     }
 
