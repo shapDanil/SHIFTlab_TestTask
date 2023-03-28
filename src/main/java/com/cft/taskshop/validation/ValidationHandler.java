@@ -63,5 +63,10 @@ public class ValidationHandler {
         }
         return EValidationCodeResult.NO_ERROR;
     }
+    public static EValidationCodeResult validateMonitor(Monitor monitor) {
+        if (validateCommodity(monitor) == EValidationCodeResult.NO_ERROR && monitor.getDiagonal() <= 0)
+            return EValidationCodeResult.MONITOR_DIAGONAL_IS_LESS_ZERO;
+        return EValidationCodeResult.NO_ERROR;
+    }
 
 }
