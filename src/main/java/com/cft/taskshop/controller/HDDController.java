@@ -51,7 +51,7 @@ public class HDDController {
         return hddService.getAll();
     }
 
-    @GetMapping("/HDD/{hddID}")
+    @GetMapping("/HDD/{hddId}")
     public ResponseEntity<?> get(@PathVariable(name = "hddId") int hddId) {
         HDD returnedHDD;
         try {
