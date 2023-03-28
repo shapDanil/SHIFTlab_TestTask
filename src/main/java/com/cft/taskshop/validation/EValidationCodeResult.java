@@ -16,6 +16,8 @@ public enum EValidationCodeResult {
     FORM_FACTOR_IS_EMPTY,
     THE_FORM_FACTOR_ENTERED_IS_NOT_CORRECT,
     NO_ERROR,
+    LAPTOP_SIZE_IN_INCHES_IS_EMPTY,
+    LAPTOP_SIZE_IN_INCHES_IS_WRONG
     ;
 
     @JsonSerialize

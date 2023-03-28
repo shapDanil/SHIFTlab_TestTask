@@ -39,19 +39,27 @@ public class ValidationHandler {
         return EValidationCodeResult.NO_ERROR;
     }
     public static EValidationCodeResult validateDesktopComputer(DesktopComputer desktopComputer) {
-        EValidationCodeResult validationCodeResult = validateDesktopComputer(desktopComputer);
-        if (validationCodeResult == EValidationCodeResult.NO_ERROR) {
+        if (validateCommodity(desktopComputer) == EValidationCodeResult.NO_ERROR) {
             if (desktopComputer.getFormFactor() == null) {
                 return EValidationCodeResult.FORM_FACTOR_IS_EMPTY;
             } else {
-                if (!desktopComputer.getFormFactor().equalsIgnoreCase("моноблок") &&
-                    !desktopComputer.getFormFactor().equalsIgnoreCase("десктоп") &&
-                    !desktopComputer.getFormFactor().equalsIgnoreCase("неттоп")) {
+                String tempFormFactor = desktopComputer.getFormFactor();
+                if (!tempFormFactor.equalsIgnoreCase("моноблок") &&
+                    !tempFormFactor.equalsIgnoreCase("десктоп") &&
+                    !tempFormFactor.equalsIgnoreCase("неттоп")) {
                     return EValidationCodeResult.THE_FORM_FACTOR_ENTERED_IS_NOT_CORRECT;
                 }
             }
-        } else {
-            return validationCodeResult;
+        }
+        return EValidationCodeResult.NO_ERROR;
+    }
+    public static EValidationCodeResult validateLaptop(Laptop laptop) {
+        if (validateCommodity(laptop) == EValidationCodeResult.NO_ERROR) {
+            if (laptop.getLaptopSizeInInches() == null) {
+                return EValidationCodeResult.LAPTOP_SIZE_IN_INCHES_IS_EMPTY;
+            } else if(laptop.getLaptopSizeInInches() < 13 || laptop.getLaptopSizeInInches() > 17){
+                return EValidationCodeResult.LAPTOP_SIZE_IN_INCHES_IS_WRONG;
+            }
         }
         return EValidationCodeResult.NO_ERROR;
     }
