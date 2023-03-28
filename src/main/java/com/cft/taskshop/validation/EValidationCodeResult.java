@@ -1,5 +1,9 @@
 package com.cft.taskshop.validation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum EValidationCodeResult {
 
     ALL_FIELDS_ARE_EMPTY,
@@ -13,4 +17,8 @@ public enum EValidationCodeResult {
     UNKNOWN_ERROR,
     NO_ERROR,
     ;
+
+    @JsonSerialize
+    String getCode() {return name();}
+
 }
