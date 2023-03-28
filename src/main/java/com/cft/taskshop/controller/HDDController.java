@@ -61,4 +61,13 @@ public class HDDController {
         }
         return ResponseEntity.ok(returnedHDD);
     }
+    @DeleteMapping("/deleteHDD/{hddID}")
+    public ResponseEntity<?> delete(@PathVariable(name = "hddID") int hddID){
+        try{
+            hddService.deleteById(hddID);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.HDD_WAS_NOT_DELETED);
+        }
+        return ResponseEntity.ok("Entity with id:" + hddID + " was deleted!");
+    }
 }

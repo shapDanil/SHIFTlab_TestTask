@@ -61,4 +61,13 @@ public class LaptopController {
         }
         return ResponseEntity.ok(returnedLaptop);
     }
+    @DeleteMapping("/deleteLaptop/{laptopId}")
+    public ResponseEntity<?> delete(@PathVariable(name = "laptopId") int laptopId){
+        try{
+            laptopService.deleteById(laptopId);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.LAPTOP_WAS_NOT_DELETED);
+        }
+        return ResponseEntity.ok("Entity with id:" + laptopId + " was deleted!");
+    }
 }

@@ -60,4 +60,13 @@ public class MonitorController {
         }
         return ResponseEntity.ok(returnedMonitor);
     }
+    @DeleteMapping("/deleteMonitor/{monitorId}")
+    public ResponseEntity<?> delete(@PathVariable(name = "monitorId") int monitorId){
+        try{
+            monitorService.deleteById(monitorId);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.MONITOR_WAS_NOT_DELETED);
+        }
+        return ResponseEntity.ok("Entity with id:" + monitorId + " was deleted!");
+    }
 }

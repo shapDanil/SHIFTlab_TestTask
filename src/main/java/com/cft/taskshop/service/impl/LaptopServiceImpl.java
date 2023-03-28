@@ -41,4 +41,9 @@ public class LaptopServiceImpl implements CommodityService<Laptop> {
         return laptopRepository.findById(id).orElseThrow();
     }
 
+    @Override
+    public void deleteById(int id) {
+        laptopRepository.deleteById(id);
+    }
+
 }

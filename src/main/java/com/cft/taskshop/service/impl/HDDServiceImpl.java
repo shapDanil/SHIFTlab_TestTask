@@ -37,4 +37,9 @@ public class HDDServiceImpl implements CommodityService<HDD> {
     public HDD get(int id) {
         return hddRepository.findById(id).orElseThrow();
     }
+
+    @Override
+    public void deleteById(int id) {
+        hddRepository.deleteById(id);
+    }
 }

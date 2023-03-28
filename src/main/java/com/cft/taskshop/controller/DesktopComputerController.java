@@ -60,4 +60,15 @@ public class DesktopComputerController {
         }
         return ResponseEntity.ok(returnedComputer);
     }
+    @DeleteMapping("/deleteDesktop/{desktopId}")
+    public ResponseEntity<?> delete(@PathVariable(name = "desktopId") int desktopId){
+        try{
+            desktopComputerService.deleteById(desktopId);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.DESKTOP_COMPUTER_WAS_NOT_DELETED);
+        }
+        return ResponseEntity.ok("Entity with id:" + desktopId + " was deleted!");
+    }
+
+
 }

@@ -5,6 +5,7 @@ import com.cft.taskshop.repository.DesktopComputerRepository;
 import com.cft.taskshop.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -35,7 +36,11 @@ public class DesktopComputerServiceImpl implements CommodityService<DesktopCompu
     }
 
     @Override
-    public DesktopComputer get(int id) {
-        return desktopComputerRepository.findById(id).orElseThrow();
+    public DesktopComputer get(int id) {return desktopComputerRepository.findById(id).orElseThrow();}
+
+    @Override
+    public void deleteById(int id){
+        desktopComputerRepository.deleteById(id);
     }
+
 }

@@ -39,4 +39,9 @@ public class MonitorServiceImpl implements CommodityService<Monitor> {
     public Monitor get(int id) {
         return monitorRepository.findById(id).orElseThrow();
     }
+
+    @Override
+    public void deleteById(int id) {
+        monitorRepository.deleteById(id);
+    }
 }

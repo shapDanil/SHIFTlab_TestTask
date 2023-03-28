@@ -5,9 +5,10 @@ import java.util.List;
 
 public interface CommodityService<EntityCommodity> {
 
-    public EntityCommodity create(EntityCommodity commodity);
-    public EntityCommodity update(EntityCommodity commodity, Integer id);
-    public List<EntityCommodity> getAll();
-    public EntityCommodity get(int id);
+     EntityCommodity create(EntityCommodity commodity);
+     EntityCommodity update(EntityCommodity commodity, Integer id);
+     List<EntityCommodity> getAll();
+     EntityCommodity get(int id);
+     void deleteById(int id);
 
 }
