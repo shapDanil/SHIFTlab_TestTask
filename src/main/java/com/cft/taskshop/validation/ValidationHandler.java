@@ -68,5 +68,10 @@ public class ValidationHandler {
             return EValidationCodeResult.MONITOR_DIAGONAL_IS_LESS_ZERO;
         return EValidationCodeResult.NO_ERROR;
     }
+    public static EValidationCodeResult validateHDD(HDD hdd) {
+        if (validateCommodity(hdd) == EValidationCodeResult.NO_ERROR && hdd.getMemoryCapacityGB() <= 0)
+            return EValidationCodeResult.HDD_MEMOTY_IS_LESS_ZERO;
+        return EValidationCodeResult.NO_ERROR;
+    }
 
 }
