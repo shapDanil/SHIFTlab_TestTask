@@ -2,6 +2,8 @@ package com.cft.taskshop.controller;
 
 import com.cft.taskshop.model.*;
 import com.cft.taskshop.service.impl.*;
+import com.cft.taskshop.validation.EValidationCodeResult;
+import com.cft.taskshop.validation.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +20,28 @@ public class MonitorController {
 
     @PostMapping("/addMonitor")
     public ResponseEntity<?> create(@RequestBody Monitor monitor) {
-        return ResponseEntity.ok(monitorService.create(monitor));
+        EValidationCodeResult returnedStatus = ValidationHandler.validateMonitor(monitor);
+        if (returnedStatus == EValidationCodeResult.NO_ERROR)
+            return ResponseEntity.ok(monitorService.create(monitor));
+        return ResponseEntity.internalServerError().body(returnedStatus);
     }
 
     @PutMapping("/monitor/{monitorId}")
-    public ResponseEntity<?> update(@PathVariable(name = "monitorId") int desktopId,
+    public ResponseEntity<?> update(@PathVariable(name = "monitorId") int monitorId,
                                     @RequestBody Monitor monitor) {
+        Monitor returnedMonitor;
         ResponseEntity<?> response;
-        Monitor returnedComputer = monitorService.update(monitor, desktopId);
-        response = ResponseEntity.ok(returnedComputer);
+        EValidationCodeResult returnedStatus = ValidationHandler.validateMonitor(monitor);
+        if (returnedStatus == EValidationCodeResult.NO_ERROR) {
+            try {
+                returnedMonitor = monitorService.update(monitor, monitorId);
+                response = ResponseEntity.ok(returnedMonitor);
+            } catch (Exception e) {
+                response = ResponseEntity.internalServerError().body(EValidationCodeResult.MONITOR_NOT_FOUND);
+            }
+        } else {
+            response = ResponseEntity.internalServerError().body(returnedStatus);
+        }
         return response;
     }
 
@@ -36,9 +51,13 @@ public class MonitorController {
     }
 
     @GetMapping("/monitor/{monitorId}")
-    public ResponseEntity<?> get(@PathVariable(name = "monitorId") int desktopId) {
-        Monitor returnedLaptop = monitorService.get(desktopId);
-        ResponseEntity<?> response = ResponseEntity.ok(returnedLaptop);
-        return response;
+    public ResponseEntity<?> get(@PathVariable(name = "monitorId") int monitorId) {
+        Monitor returnedMonitor;
+        try {
+            returnedMonitor = monitorService.get(monitorId);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.MONITOR_NOT_FOUND);
+        }
+        return ResponseEntity.ok(returnedMonitor);
     }
 }

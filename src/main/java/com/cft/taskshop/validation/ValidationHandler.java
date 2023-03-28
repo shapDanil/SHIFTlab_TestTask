@@ -70,7 +70,7 @@ public class ValidationHandler {
     }
     public static EValidationCodeResult validateHDD(HDD hdd) {
         if (validateCommodity(hdd) == EValidationCodeResult.NO_ERROR && hdd.getMemoryCapacityGB() <= 0)
-            return EValidationCodeResult.HDD_MEMOTY_IS_LESS_ZERO;
+            return EValidationCodeResult.HDD_MEMORY_IS_LESS_ZERO;
         return EValidationCodeResult.NO_ERROR;
     }
 

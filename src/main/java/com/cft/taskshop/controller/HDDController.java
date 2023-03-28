@@ -3,6 +3,8 @@ package com.cft.taskshop.controller;
 
 import com.cft.taskshop.model.*;
 import com.cft.taskshop.service.impl.*;
+import com.cft.taskshop.validation.EValidationCodeResult;
+import com.cft.taskshop.validation.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +21,28 @@ public class HDDController {
 
     @PostMapping("/addHDD")
     public ResponseEntity<?> create(@RequestBody HDD hdd) {
-        return ResponseEntity.ok(hddService.create(hdd));
+        EValidationCodeResult returnedStatus = ValidationHandler.validateHDD(hdd);
+        if (returnedStatus == EValidationCodeResult.NO_ERROR)
+            return ResponseEntity.ok(hddService.create(hdd));
+        return ResponseEntity.internalServerError().body(returnedStatus);
     }
 
-    @PutMapping("/HDD/{IdHDD}")
-    public ResponseEntity<?> update(@PathVariable(name = "IdHDD") int desktopId,
+    @PutMapping("/HDD/{hddID}")
+    public ResponseEntity<?> update(@PathVariable(name = "hddID") int hddID,
                                     @RequestBody HDD hdd) {
+        HDD returnedHDD;
         ResponseEntity<?> response;
-        HDD returnedComputer = hddService.update(hdd, desktopId);
-        response = ResponseEntity.ok(returnedComputer);
+        EValidationCodeResult returnedStatus = ValidationHandler.validateHDD(hdd);
+        if (returnedStatus == EValidationCodeResult.NO_ERROR) {
+            try {
+                returnedHDD = hddService.update(hdd, hddID);
+                response = ResponseEntity.ok(returnedHDD);
+            } catch (Exception e) {
+                response = ResponseEntity.internalServerError().body(EValidationCodeResult.HDD_NOT_FOUND);
+            }
+        } else {
+            response = ResponseEntity.internalServerError().body(returnedStatus);
+        }
         return response;
     }
 
@@ -36,10 +51,14 @@ public class HDDController {
         return hddService.getAll();
     }
 
-    @GetMapping("/HDD/{IdHDD}")
-    public ResponseEntity<?> get(@PathVariable(name = "IdHDD") int desktopId) {
-        HDD returnedLaptop = hddService.get(desktopId);
-        ResponseEntity<?> response = ResponseEntity.ok(returnedLaptop);
-        return response;
+    @GetMapping("/HDD/{hddID}")
+    public ResponseEntity<?> get(@PathVariable(name = "hddId") int hddId) {
+        HDD returnedHDD;
+        try {
+            returnedHDD = hddService.get(hddId);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(EValidationCodeResult.HDD_NOT_FOUND);
+        }
+        return ResponseEntity.ok(returnedHDD);
     }
 }
